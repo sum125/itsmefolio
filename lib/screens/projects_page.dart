@@ -26,18 +26,17 @@ class ProjectsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isMobile = MediaQuery.of(context).size.width < 800;
+
     return Scaffold(
       backgroundColor: const Color(0xFFF3F3EF),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(48),
+        padding: EdgeInsets.all(isMobile ? 20 : 48),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // PageHeader는 폭 제한 밖 — 화면 전체 너비 기준
             const PageHeader(label: 'WORK'),
             const SizedBox(height: 60),
-
-            // 본문(카탈로그 라벨 + 카드)만 폭 제한 + 가운데 정렬
             Center(
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 1100),
@@ -54,22 +53,37 @@ class ProjectsPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
 
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        for (int i = 0; i < _projects.length; i++) ...[
-                          Expanded(
-                            child: ProjectCard(
-                              number: '0${i + 1}', // sku: 대신 number:
-                              title: _projects[i]['title']!,
-                              meta: _projects[i]['meta']!,
-                              onTap: () => context.go('/projects/${_projects[i]['id']}'),
-                            ),
+                    // STEP 5-4: 모바일 = 세로 목록, 데스크톱 = 기존 3열
+                    isMobile
+                        ? Column(
+                            children: [
+                              for (int i = 0; i < _projects.length; i++) ...[
+                                ProjectCard(
+                                  number: '0${i + 1}',
+                                  title: _projects[i]['title']!,
+                                  meta: _projects[i]['meta']!,
+                                  onTap: () => context.go('/projects/${_projects[i]['id']}'),
+                                ),
+                                if (i != _projects.length - 1) const SizedBox(height: 20),
+                              ],
+                            ],
+                          )
+                        : Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              for (int i = 0; i < _projects.length; i++) ...[
+                                Expanded(
+                                  child: ProjectCard(
+                                    number: '0${i + 1}',
+                                    title: _projects[i]['title']!,
+                                    meta: _projects[i]['meta']!,
+                                    onTap: () => context.go('/projects/${_projects[i]['id']}'),
+                                  ),
+                                ),
+                                if (i != _projects.length - 1) const SizedBox(width: 24),
+                              ],
+                            ],
                           ),
-                          if (i != _projects.length - 1) const SizedBox(width: 24),
-                        ],
-                      ],
-                    ),
                   ],
                 ),
               ),

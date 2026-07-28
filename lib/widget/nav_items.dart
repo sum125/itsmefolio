@@ -20,20 +20,30 @@ class NavItems extends StatelessWidget {
     );
   }
 
+  // STEP 8-1: GestureDetector → Semantics + InkWell (키보드 포커스·스크린리더 대응)
   Widget _navItem(BuildContext context, String label, String path) {
     final String currentPath = GoRouterState.of(context).uri.toString();
     final bool isActive = path == '/' ? currentPath == '/' : currentPath.startsWith(path);
 
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: () => context.go(path),
-        child: Text(
-          label,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: isActive ? const Color(0xFFA73B2E) : const Color(0xFF1D1D1B),
+    return Semantics(
+      button: true,
+      label: '$label 페이지로 이동',
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: InkWell(
+          onTap: () => context.go(path),
+          borderRadius: BorderRadius.circular(4),
+          hoverColor: const Color(0x0DA73B2E),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: isActive ? const Color(0xFFA73B2E) : const Color(0xFF1D1D1B),
+              ),
+            ),
           ),
         ),
       ),

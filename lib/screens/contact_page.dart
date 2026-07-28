@@ -7,9 +7,10 @@ import 'package:portfolio_app/widget/icon_button_link.dart';
 class ContactPage extends StatelessWidget {
   const ContactPage({super.key});
 
-  static const String _email = 'your-email@example.com'; // 실제 이메일로 교체
-  static const String _phone = '01000000000'; // 실제 번호로 교체 (하이픈 없이)
-  static const String _resumeUrl = 'https://your-resume-link.com'; // 실제 이력서 링크로 교체
+  // ⚠️ STEP 1-1: 실제 값으로 반드시 교체 후 배포하세요.
+  static const String _email = 'your-email@example.com';
+  static const String _phone = '01000000000';
+  static const String _resumeUrl = 'https://your-resume-link.com';
 
   Future<void> _launchEmail() async {
     final uri = Uri(scheme: 'mailto', path: _email);
@@ -28,10 +29,12 @@ class ContactPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isMobile = MediaQuery.of(context).size.width < 800;
+
     return Scaffold(
       backgroundColor: const Color(0xFFF3F3EF),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(48),
+        padding: EdgeInsets.all(isMobile ? 20 : 48),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -61,22 +64,28 @@ class ContactPage extends StatelessWidget {
             ),
             const SizedBox(height: 56),
 
-            MouseRegion(
-              cursor: SystemMouseCursors.click,
-              child: GestureDetector(
-                onTap: _launchResume,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: const Color(0xFF1D1D1B)),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: const Text(
-                    '이력서 다운로드',
-                    style: TextStyle(
-                      fontFamily: 'IBM Plex Mono',
-                      fontSize: 12,
-                      color: Color(0xFF1D1D1B),
+            // STEP 8-1: GestureDetector → Semantics + InkWell
+            Semantics(
+              button: true,
+              label: '이력서 다운로드',
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: InkWell(
+                  onTap: _launchResume,
+                  borderRadius: BorderRadius.circular(4),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: const Color(0xFF1D1D1B)),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: const Text(
+                      '이력서 다운로드',
+                      style: TextStyle(
+                        fontFamily: 'IBM Plex Mono',
+                        fontSize: 12,
+                        color: Color(0xFF1D1D1B),
+                      ),
                     ),
                   ),
                 ),

@@ -47,7 +47,9 @@ class _KeyholePainter extends CustomPainter {
   bool shouldRepaint(covariant _KeyholePainter oldDelegate) => false;
 }
 
-// 프로젝트 노드 (아이콘 + 텍스트 + 클릭) — 아이콘 위에서만 커서가 열쇠로 바뀜
+// 프로젝트 노드 (아이콘 + 텍스트 + 클릭)
+// STEP 7-1: label/title 위계 교환 + 제목 끝 화살표로 상시 클릭 단서
+// STEP 8-1: GestureDetector → Semantics + InkWell
 class ProjectNode extends StatelessWidget {
   final String label;
   final String title;
@@ -61,40 +63,53 @@ class ProjectNode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Row(
-        children: [
-          SizedBox(
-            width: 36,
-            height: 43,
-            child: KeyholeCursorArea(
-              child: const KeyholeIcon(size: 36),
-            ),
-          ),
-          const SizedBox(width: 12),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Semantics(
+      button: true,
+      label: '$title 프로젝트 상세 보기',
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(8),
+        hoverColor: const Color(0x0DA73B2E),
+        child: Padding(
+          padding: const EdgeInsets.all(6),
+          child: Row(
             children: [
-              Text(
-                label,
-                style: const TextStyle(
-                  fontFamily: 'IBM Plex Mono',
-                  fontSize: 12,
-                  color: Color(0xFF1D1D1B),
+              SizedBox(
+                width: 36,
+                height: 43,
+                child: KeyholeCursorArea(
+                  child: const KeyholeIcon(size: 36),
                 ),
               ),
-              Text(
-                title,
-                style: const TextStyle(
-                  fontFamily: 'Noto Sans KR',
-                  fontSize: 13,
-                  color: Color(0xFFA6A29B),
-                ),
+              const SizedBox(width: 12),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // 라벨 — 보조 정보로 축소
+                  Text(
+                    label,
+                    style: const TextStyle(
+                      fontFamily: 'IBM Plex Mono',
+                      fontSize: 11,
+                      color: Color(0xFFA6A29B),
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  // 제목 — 주인공으로 승격 + 상시 클릭 단서(화살표)
+                  Text(
+                    '$title →',
+                    style: const TextStyle(
+                      fontFamily: 'Noto Sans KR',
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF1D1D1B),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }

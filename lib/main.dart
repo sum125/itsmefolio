@@ -16,6 +16,8 @@ class PortfolioApp extends StatelessWidget {
       theme: ThemeData(fontFamily: "ProductSans"),
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter,
+      // STEP 8-2(텍스트 드래그 선택)는 go_router 조합에서 Overlay 충돌이 발생해 보류.
+      // 앱 정상 구동을 우선하고, 이 기능은 나중에 안전한 방식으로 다시 시도합니다.
     );
   }
 }
