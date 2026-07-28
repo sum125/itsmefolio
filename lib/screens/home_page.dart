@@ -136,10 +136,11 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                     top: 190,
                     child: ProjectNode(
                       label: 'RESEARCH 02',
-                      title: '오디오북 UX 비교',
-                      onTap: () => context.go('/projects/audiobook'),
+                      title: '액티브 시니어 ', // ← "오디오북 UX 비교"에서 변경
+                      onTap: () => context.go('/projects/lgsuite'),
                     ),
                   ),
+
                   Positioned(
                     right: 0,
                     top: 360,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'keyhole_cursor_area.dart';
 
 // 작은 열쇠구멍 아이콘 (프로젝트 노드용)
 class KeyholeIcon extends StatelessWidget {
@@ -46,7 +47,7 @@ class _KeyholePainter extends CustomPainter {
   bool shouldRepaint(covariant _KeyholePainter oldDelegate) => false;
 }
 
-// 프로젝트 노드 (아이콘 + 텍스트 + 클릭)
+// 프로젝트 노드 (아이콘 + 텍스트 + 클릭) — 아이콘 위에서만 커서가 열쇠로 바뀜
 class ProjectNode extends StatelessWidget {
   final String label;
   final String title;
@@ -60,37 +61,40 @@ class ProjectNode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: onTap,
-        child: Row(
-          children: [
-            const KeyholeIcon(size: 36),
-            const SizedBox(width: 12),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  label,
-                  style: const TextStyle(
-                    fontFamily: 'IBM Plex Mono',
-                    fontSize: 12,
-                    color: Color(0xFF1D1D1B),
-                  ),
-                ),
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontFamily: 'Noto Sans KR',
-                    fontSize: 13,
-                    color: Color(0xFFA6A29B),
-                  ),
-                ),
-              ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Row(
+        children: [
+          SizedBox(
+            width: 36,
+            height: 43,
+            child: KeyholeCursorArea(
+              child: const KeyholeIcon(size: 36),
             ),
-          ],
-        ),
+          ),
+          const SizedBox(width: 12),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                label,
+                style: const TextStyle(
+                  fontFamily: 'IBM Plex Mono',
+                  fontSize: 12,
+                  color: Color(0xFF1D1D1B),
+                ),
+              ),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontFamily: 'Noto Sans KR',
+                  fontSize: 13,
+                  color: Color(0xFFA6A29B),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
