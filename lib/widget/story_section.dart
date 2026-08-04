@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'rich_body_text.dart';
 
 class StorySection extends StatelessWidget {
   final String heading;
@@ -25,8 +26,8 @@ class StorySection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
-        Text(
-          body,
+        RichBodyText(
+          text: body,
           style: const TextStyle(
             fontFamily: 'Noto Sans KR',
             fontWeight: FontWeight.w400,

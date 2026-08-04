@@ -145,57 +145,98 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   // 화면 폭과 무관하게 항상 중앙 정렬되어 넓은 화면에서도 여백이 어색해지지 않는다.
   Widget _buildSectionB(BuildContext context) {
     final bool isMobile = MediaQuery.of(context).size.width < 800;
+    final double screenHeight = MediaQuery.of(context).size.height;
 
-    return Container(
-      width: double.infinity,
-      constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height),
-      color: const Color(0xFFF3F3EF),
-      padding: EdgeInsets.all(isMobile ? 20 : 48),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const PageHeader(),
-          const SizedBox(height: 60),
-
-          Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 1100),
-              child: Column(
-                children: [
-                  // 중앙 — 물음표 (첫 화면과 같은 아이콘, "질문"의 상징)
-                  Image.asset(
-                    'assets/union.png',
-                    width: 48,
-                    color: const Color(0xFF1D1D1B),
-                  ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    '하나의 질문에서 세 개의 리서치로',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'Noto Sans KR',
-                      fontSize: 14,
-                      height: 1.6,
-                      color: Color(0xFF1D1D1B),
-                    ),
-                  ),
-                  SizedBox(height: isMobile ? 40 : 56),
-
-                  // 세 리서치 카드 — 데스크톱 3열 / 모바일 세로
-                  isMobile ? _mobileNodes(context) : _desktopNodes(context),
-                ],
+    final Widget topBlock = Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 1100),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset(
+              'assets/union.png',
+              width: 40,
+              color: const Color(0xFF1D1D1B),
+            ),
+            const SizedBox(height: 14),
+            const Text(
+              '올바른 질문이 문제를 푸는 열쇠가 되었습니다',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'Noto Sans KR',
+                fontSize: 14,
+                height: 1.6,
+                color: Color(0xFF1D1D1B),
               ),
             ),
-          ),
+            SizedBox(height: isMobile ? 28 : 36),
+            isMobile ? _mobileNodes(context) : _desktopNodes(context),
+          ],
+        ),
+      ),
+    );
 
-          const SizedBox(height: 56),
-          const SectionHeading(
-            title: "사용자의 망설임을 관찰합니다",
-            subtitle: "질문을 다시 세우는 것에서, 리서치는 시작됩니다",
-          ),
-          const SizedBox(height: 40),
-          Center(child: _viewAllCta(context)),
-        ],
+    final Widget headingRow = isMobile
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SectionHeading(
+                title: "사용자의 망설임을 관찰합니다",
+                subtitle: "질문을 다시 세우는 것에서, 리서치는 시작됩니다",
+              ),
+              const SizedBox(height: 20),
+              _viewAllCta(context),
+            ],
+          )
+        : Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              const Expanded(
+                child: SectionHeading(
+                  title: "사용자의 망설임을 관찰합니다",
+                  subtitle: "질문을 다시 세우는 것에서, 리서치는 시작됩니다",
+                ),
+              ),
+              _viewAllCta(context),
+            ],
+          );
+
+    // 모바일 — 고정 높이 없이 자연스럽게 쌓기 (내용 넘침 방지)
+    if (isMobile) {
+      return Container(
+        width: double.infinity,
+        color: const Color(0xFFF3F3EF),
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const PageHeader(),
+            const SizedBox(height: 40),
+            topBlock,
+            const SizedBox(height: 36),
+            headingRow,
+            const SizedBox(height: 40),
+          ],
+        ),
+      );
+    }
+
+    // 데스크톱 — 화면 높이 고정 + 남는 공간을 물음표 블록에 자동 배분
+    return SizedBox(
+      width: double.infinity,
+      height: screenHeight,
+      child: Container(
+        color: const Color(0xFFF3F3EF),
+        padding: const EdgeInsets.all(40),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const PageHeader(),
+            Expanded(child: topBlock), // 남는 공간을 다 차지하고, 그 안에서 topBlock을 세로 중앙 정렬
+            headingRow,
+            const SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }
@@ -207,8 +248,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         Expanded(
           child: _nodeCard(
             context,
-            label: 'RESEARCH 01',
-            title: '챗봇 인터랙션 UXR',
+            label: 'Project 01',
+            title: '맥락을 놓치지 않는 대화 경험',
             onTap: () => context.go('/projects/chatbot'),
           ),
         ),
@@ -216,8 +257,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         Expanded(
           child: _nodeCard(
             context,
-            label: 'RESEARCH 02',
-            title: '액티브 시니어 여행 리서치',
+            label: 'Project 02',
+            title: '회복으로 이어지는 숙박 경험',
             onTap: () => context.go('/projects/lgsuite'),
           ),
         ),
@@ -225,8 +266,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
         Expanded(
           child: _nodeCard(
             context,
-            label: 'RESEARCH 03',
-            title: '조직경험 분석',
+            label: 'Project 03',
+            title: '성장을 설계하는 조직 경험',
             onTap: () => context.go('/projects/org'),
           ),
         ),
@@ -239,22 +280,22 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       children: [
         _nodeCard(
           context,
-          label: 'RESEARCH 01',
-          title: '챗봇 인터랙션 UXR',
+          label: 'Project 01',
+          title: '맥락을 놓치지 않는 대화 경험',
           onTap: () => context.go('/projects/chatbot'),
         ),
         const SizedBox(height: 16),
         _nodeCard(
           context,
-          label: 'RESEARCH 02',
-          title: '액티브 시니어 여행 리서치',
+          label: 'Project 02',
+          title: '회복으로 이어지는 숙박 경험',
           onTap: () => context.go('/projects/lgsuite'),
         ),
         const SizedBox(height: 16),
         _nodeCard(
           context,
-          label: 'RESEARCH 03',
-          title: '조직경험 분석',
+          label: 'Project 03',
+          title: '성장을 설계하는 조직 경험',
           onTap: () => context.go('/projects/org'),
         ),
       ],
@@ -320,7 +361,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   Widget _viewAllCta(BuildContext context) {
     return Semantics(
       button: true,
-      label: '모든 리서치 프로젝트 보기',
+      label: '모든 프로젝트 보기',
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
         child: InkWell(
@@ -333,7 +374,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               borderRadius: BorderRadius.circular(4),
             ),
             child: const Text(
-              '모든 리서치 보기 →',
+              '모든 프로젝트 보기 →',
               style: TextStyle(
                 fontFamily: 'IBM Plex Mono',
                 fontSize: 13,

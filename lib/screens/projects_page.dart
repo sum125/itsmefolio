@@ -9,17 +9,17 @@ class ProjectsPage extends StatelessWidget {
   static const List<Map<String, String>> _projects = [
     {
       'id': 'chatbot',
-      'title': '챗봇 인터랙션 UXR',
-      'meta': '4주 · 표본 60',
+      'title': '맥락을 놓치지 않는 대화 경험',
+      'meta': '4주 · 설문 100 · 인터뷰 20',
     },
     {
       'id': 'lgsuite',
-      'title': '액티브 시니어 여행 리서치',
+      'title': '회복으로 이어지는 회복 경험',
       'meta': '텍스트마이닝 · 15,000건+',
     },
     {
       'id': 'org',
-      'title': '조직경험 분석',
+      'title': '성장을 설계하는 조직 경험',
       'meta': '5주 · 인터뷰 기반',
     },
   ];

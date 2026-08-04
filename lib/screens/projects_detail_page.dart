@@ -5,16 +5,13 @@ import 'package:portfolio_app/widget/redefinition_mark.dart';
 import 'package:portfolio_app/widget/spec_table.dart';
 import 'package:portfolio_app/widget/story_section.dart';
 import 'package:portfolio_app/widget/key_moment.dart';
-import 'package:portfolio_app/widget/pivot_diagram.dart';
 import 'package:portfolio_app/widget/section_nav_dots.dart';
 import 'package:portfolio_app/widget/prototype_carousel.dart';
 import 'package:portfolio_app/widget/prev_next_project_nav.dart';
 import 'package:portfolio_app/widget/process_flow.dart';
 import 'package:portfolio_app/widget/question_flow.dart';
-import 'package:portfolio_app/widget/sequential_monadic_diagram.dart';
-import 'package:portfolio_app/widget/hybrid_conclusion_diagram.dart';
-import 'package:portfolio_app/widget/ggp_cycle_diagram.dart';
-import 'package:portfolio_app/widget/persona_card.dart';
+import 'package:portfolio_app/widget/glossary_term.dart';
+import 'package:portfolio_app/widget/rich_body_text.dart';
 
 class ProjectsDetailPage extends StatefulWidget {
   final String projectId;
@@ -84,44 +81,31 @@ class _ProjectsDetailPageState extends State<ProjectsDetailPage> {
     }
   }
 
-  // 프로젝트별 콘텐츠 데이터
   static const Map<String, Map<String, dynamic>> _data = {
     'chatbot': {
-      'sku': 'RESEARCH NO. 01',
+      'sku': 'Project NO. 01',
+      'affiliation': '학부 프로젝트 → 학술지 투고 (리비전 중)',
       'title': 'AI 멘탈케어 챗봇 인터랙션 분석',
       'summary': '가이드형과 개방형 인터랙션을 비교하며 선호와 이탈 원인을 분리했고, 두 구조 모두에서 반복되는 이탈의 진짜 원인이 맥락 파악 실패에 있다는 것을 발견했습니다.',
       'original': '가이드형과 개방형, 어떤 인터랙션이 더 나은가',
       'redefined': '구조와 무관하게, 사용자는 언제 맥락을 잃고 이탈하는가',
       'specs': {
         '기간': '4주 (+ 논문 보강 1주)',
-        '표본': '스크리닝 60명 · 심층인터뷰 20명 (초기 22명·8명에서 확대)',
+        '표본': '스크리닝 100명 · 심층인터뷰 20명 (초기 22명·8명에서 확대)',
         '방법론': 'Sequential Monadic',
-        '역할': '[팀 N인] 중 리서치 설계 리드 — 스크리닝 문항 설계, 심층인터뷰 [n]건 직접 진행, 분석 축 전환 제안',
       },
       'methodReason':
-          '가이드형과 개방형을 다른 사람에게 각각 보여주면 응답자 성향 차이가 결과에 섞여버립니다. 같은 사람이 두 인터랙션을 순차 체험하게 해서, 두 번째 경험에서 드러나는 미세한 불편과 상대적 체감 차이를 포착하는 방법을 택했습니다. 초기 22명, 8명이었던 표본은 성향별로 패턴이 갈리는 걸 확인한 뒤, 확신을 위해 60명, 20명까지 넓혔습니다.',
+          '가이드형과 개방형을 다른 사람에게 각각 보여주면 응답자 성향 차이가 결과에 섞여버립니다. 같은 사람이 두 인터랙션을 순차 체험하게 해서, 두 번째 경험에서 드러나는 미세한 불편과 상대적 체감 차이를 포착하는 방법을 택했습니다. 먼저 쓴 앱이 나중 평가에 영향을 주지 않도록 가이드형 앱(Wysa) 선행/개방형 앱(GPT) 선행 그룹을 교차 배치했고, 앱 이름을 언급하지 않는 블라인드 방식으로 선입견도 배제했습니다.\n\n초기 22명, 8명이었던 표본은 성향별로 패턴이 갈리는 걸 확인한 뒤, 검증을 위해 100명, 20명까지 넓혔습니다.',
       'process': null,
       'journeyStages': null,
       'activeJourneyIndices': null,
       'interviewQuestions': null,
       'pivot':
-          '처음엔 \'에너지 상태\'를 분석 축으로 잡았습니다. 그런데 에너지는 그날그날 바뀌는 값이라, 같은 사람도 측정 시점에 따라 다른 답을 낼 수 있었습니다. 이대로면 노이즈를 성향으로 오독할 위험이 있다고 판단해, Self-Regulatory Theory의 promotion/prevention 성향으로 축을 바꿨습니다 — 상태보다 훨씬 안정적으로 유지되는 변수였습니다.',
-      'pivotFrom': '에너지 상태 (State)',
-      'pivotFromNote': '그날그날 변하는 값 — 노이즈를 성향으로 오독할 위험',
-      'pivotTo': '조절초점 성향 (Disposition)',
-      'pivotToNote': 'Promotion / Prevention — 시점과 무관하게 유지되는 안정적 변수',
-      'pivotEvidenceLabel': 'DATA CHECK',
-      'pivotEvidences': [
-        '# 저에너지 상태여도 직접 말하고 싶어하는 사람',
-        '# 고에너지 상태여도 누가 이끌어주는 게 편한 사람',
-      ],
-      'pivotEvidenceNote': '스크리닝 데이터에서 상태-선호 불일치 사례가 반복 확인됨',
+          '처음엔 **에너지 상태**를 분석 축으로 잡았습니다. 그런데 에너지는 그날그날 바뀌는 값이라, 같은 사람도 측정 시점에 따라 다른 답을 낼 수 있었습니다.\n\n이대로면 노이즈를 성향으로 오독할 위험이 있다고 판단해, **평소 감정을 다루는 성향**(promotion/prevention)으로 축을 바꿨습니다 — 상태보다 훨씬 안정적으로 유지되는 변수였습니다.',
       'decision':
-          '축을 바꾸고 나서야 진짜 패턴이 보였습니다. promotion 성향은 개방형을, prevention 성향은 가이드형을 선호했습니다. 하지만 구조와 무관하게 맥락을 계속 다시 요구받으면 누구든 피로해져 이탈했습니다. 좋은 가이드의 전제는 형식이 아니라 맥락 파악 여부라는 결론을 내렸고, 하이브리드 인터랙션 구조에 \'이해한 맥락을 확인하는 질문\' 시스템을 결합하는 개선안으로 이어졌습니다.',
-      'validation':
-          '개선안은 3단계 프로토타입(진입·대화·마무리)으로 구체화했습니다. 실제 검증까지는 진행하지 못했지만, 검증한다면 두 지표를 보겠다고 설계해뒀습니다 — 맥락 확인 질문 도입 후 [세션당 재설명 요청 횟수]의 감소, 그리고 [3턴 이상 대화 지속률]의 변화. 이탈의 원인을 맥락 단절로 정의했으니, 검증 지표도 맥락 유지 여부를 직접 재는 것이어야 한다고 판단했습니다.',
+          '안정적인 변수로 바꾸고 나서야 진짜 패턴이 보였습니다. promotion 성향은 개방형을, prevention 성향은 가이드형을 선호했습니다. 다양한 관점으로 분석을 하다보니 중요한 발견이 있었습니다 — 사용자마다 해결의 정의 자체가 달랐습니다. 그저 들어주는 것만으로 만족하는 사람에게는 개방형(GPT)의 기계적인 해결 시도가 오히려 방해였고, 명확한 답을 원하는 사람에게는 가이드형(Wysa)의 얕은 조언과 끝없는 공감이 답답함으로 남았습니다.\n\n구조를 아무리 잘 맞춰도 해결책이 모호하거나 맥락에 맞는 공감이 아니면 결국 이탈한다는 뜻이었습니다. 좋은 가이드의 전제는 형식이 아니라 맥락 파악 여부라는 결론을 내렸고, 하이브리드 인터랙션 구조의 핵심을 **사용자의 맥락을 잘 따라가는** 시스템으로 결합하는 개선안으로 이어졌습니다.',
       'retrospective':
-          '문제를 인터랙션 형태(가이드형 vs 개방형)로 두면 답이 안 나온다는 걸 배웠습니다. \'맥락 반영 실패의 반복\'이라는 하나의 변수로 수렴시키고 나서야 개선안이 명확해졌습니다. 사람이 왜 대화를 멈추는지, 그 이유를 끝까지 좁혀가는 과정 자체가 흥미로웠던 프로젝트입니다.',
+          '문제를 인터랙션 형태(가이드형 vs 개방형)로 두면 너무 한정적이라는 것을 배웠습니다. **맥락 반영 실패의 반복**이라는 하나의 공통적인 중요한 문제로 정의하고 나서야 개선안이 명확해졌습니다.\n\n사람이 왜 대화를 멈추는지, 그 이유를 끝까지 좁혀가는 과정 자체가 흥미로웠던 프로젝트입니다.',
       'prototypes': [
         {
           'image': 'assets/mental_entry.png',
@@ -136,96 +120,92 @@ class _ProjectsDetailPageState extends State<ProjectsDetailPage> {
           'caption': '마무리 단계 — 종결 시점의 선택권',
         },
       ],
-      // Sequential Monadic 설계 / 하이브리드 결론은 이제 위젯으로 본문에 직접 렌더링되므로
-      // OUTCOME 캐러셀에는 넣지 않음 (중복 방지)
-      'outcomes': <Map<String, String>>[],
+      'outcomeHeight': null,
+      'outcomeWidth': null,
+
+      'paperStatus': '현재 학술지 리비전(수정 후 재심사) 진행 중입니다',
+      'paperMotivation': null,
+      'paperExpansion':
+          '표본도 다시 설계했습니다. 초기 인터뷰 8명은 패턴을 발견하기엔 충분했지만, 그 패턴이 우연이 아니라는 걸 증명하기엔 부족했습니다. 설문 조사를 100명으로, 직접 사용해보는 인터뷰는 20명으로 확장해 연구를 확장했습니다.\n\n설문 설계, 인터뷰 진행, 정성 코딩, 통계분석을 진행하였습니다.',
+      'paperReframe':
+          '학기 프로젝트 때 썼던 promotion/prevention 축은 자체 제작한 문항 2개로 판단한 것이었고, 검증된 도구가 아니었습니다. 학술적으로 이 결과를 발표하려면 타당성이 확인된 척도가 필요하다고 판단해, 이미 검증된 한국어 척도(IUS-12, K-STAI-T, K-DERS)로 완전히 교체했습니다.\n\n기존 인터뷰 참가자 8명에게도 새 척도로 설문을 다시 받아 소급 적용했습니다. 예측 불가능한 상황을 못 견디는 정도(IU)가 높을수록 예측 가능한 가이드형 구조를 선호할 거라는 가설로 다시 세웠습니다.',
+      'paperConclusion':
+          '결론은 하나의 정답이 아니라, 두 구조 모두 **올바르게 구현됐을 때만** 도움이 된다는 것이었습니다. 가이드형은 예측 가능함이 강점이지만 맥락을 무시한 반복 질문은 오히려 대화의 통제권을 빼앗았고, 개방형은 자유로움이 강점이지만 스스로 대화를 이끌어야 하는 부담이 있었습니다.\n\n그래서 최종 제안은 고정된 하나의 구조가 아니라, 사용자가 필요할 때 구조를 켜고 끌 수 있는 프로파일 기반 하이브리드 인터페이스였습니다.',
     },
     'lgsuite': {
-      'sku': 'RESEARCH NO. 02',
-      'title': '액티브 시니어 여행 경험에 스며드는 제품 설계 리서치',
+      'sku': 'Project NO. 02',
+      'affiliation': 'LG DX School · 학부 팀 프로젝트',
+      'title': '액티브 시니어의 삶에서의 LG가전 경험 설계',
       'summary':
-          '네이버 카페·블로그 15,000건 이상의 텍스트를 분석해 액티브 시니어의 여행 행동을 클러스터링했고, 제품을 전면에 내세우는 대신 사용자의 실제 여행 경험 안에 자연스럽게 스며드는 방식으로 서비스를 설계했습니다.',
-      'original': 'LG 가전을 어떻게 더 많이 체험시킬 것인가',
-      'redefined': '가전을 보여주는 대신, 고객의 여행이라는 경험 안에 어떻게 스며들 수 있는가',
+          'LG전자는 가전 시장 점유율 1위지만, 여러 제품을 함께 경험해본 고객은 세대·구매력 면에서 한정적이었습니다. 액티브 시니어의 관심사를 넓게 크롤링하다가 **여행**이 가장 두드러진 주제라는 걸 데이터로 발견했고, 그 안에서도 **숙소가 목적지**라고 답하는 사람들의 회복 니즈를 찾아 제품 경험으로 연결했습니다.',
+      'original': '체험 공간을 만들면, 고객이 찾아올 것이다',
+      'redefined': '고객을 찾아오게 하는 대신, 고객의 삶(여행) 속으로 먼저 들어가야 한다',
       'specs': {
-        '표본': '네이버 카페·블로그 15,000건+',
-        '방법론': 'SBERT 임베딩 · UMAP · HDBSCAN 클러스터링',
-        '도구': 'OKT 형태소 · ngram(2-3) · TF-IDF · NMF',
-        '역할': '[팀 N인] 중 분석 파이프라인 담당 — 채널 선정 논리 수립, SBERT·클러스터링 직접 구현, 페르소나 선정 기준 설계',
-        '비고': 'LG전자 과제 기반 학내 프로젝트',
+        '표본': '1차 4,889건 · 2차 16,027건 (총 45,000건+ 원본 수집)',
+        '방법론': 'SBERT 임베딩 · UMAP · HDBSCAN · NMF',
+        '도구': 'SBERT+RandomForest 분류기 · TF-IDF · Opportunity Map',
       },
       'methodReason':
-          '인스타그램이 아니라 네이버 카페·블로그를 택한 이유는, 액티브 시니어가 여행 경험을 짧은 이미지가 아니라 긴 서술형 텍스트로 남기는 채널이었기 때문입니다. 감정과 페인포인트가 문장에 담기는 곳이라 SBERT 기반 분석에 적합하다고 판단했습니다.',
+          '먼저 타겟부터 데이터로 검증했습니다. 2026년 한국 50세 이상 인구가 46%를 넘고, 2050년엔 이들의 소비지출 비중이 71%까지 늘어날 것으로 전망됩니다. 그중에서도 **액티브 시니어**와 **일반 시니어**는 다른 집단으로 구분지어야 합니다. 신한카드 데이터에 따르면 액티브 시니어의 소비는 늘고(+10%) 일반 시니어는 줄고(-22%) 있었기 때문입니다.\n\n이들이 원하는 건 돌봄이 아니라 경험 가치인데, LG는 아직 기능 제공에 머물러 있다는 게 저희가 잡은 핵심 난제였습니다.',
       'process': [
         {
-          'title': '크롤링할 곳 선정',
-          'description':
-              '액티브 시니어가 여행 경험을 길게 서술하는 채널이 어디인지부터 판단했습니다. 짧은 이미지 위주인 인스타그램 대신, 감정과 맥락이 문장에 담기는 네이버 카페·블로그를 선택했습니다.',
-        },
-        {
-          'title': '1차 크롤링 진행',
-          'description': '여행 후기 게시글 15,000건 이상을 수집했습니다.',
+          'title': '1차 크롤링 — 관심사 전반',
+          'description': '액티브 시니어는 어떤 것에 관심이 있을까라는 열린 질문으로 시작했습니다. 시니어 라이프스타일 카페 3곳에서 5,197건을 모아 전처리 후 4,889건을 확보했습니다.',
         },
         {
           'title': '핵심 키워드 도출',
-          'description': 'OKT 형태소 분석과 ngram(2-3)으로 의미 있는 복합어를 추출해, 어떤 언어가 반복적으로 나타나는지 먼저 확인했습니다.',
-        },
-        {
-          'title': '2차 크롤링 진행',
-          'description': '1차 키워드에서 드러난 맥락을 더 깊이 확인하기 위해, 관련성이 높은 게시글을 추가로 수집했습니다.',
-        },
-        {
-          'title': 'Actor-Action 분석',
-          'description': '누가(Actor) 무엇을(Action) 했는지를 문서 단위로 구조화해, 단순 키워드 빈도가 아니라 행동 패턴으로 데이터를 다시 읽었습니다.',
-        },
-        {
-          'title': '페르소나 도출',
           'description':
-              'SBERT 임베딩과 HDBSCAN으로 Actor 클러스터를 나눴고(파라미터별 실루엣 점수 비교 후 noise 제거, n=4), 체력·완주 의지·프리미엄 숙소 예약 패턴이 동시에 나타난 클러스터를 핵심 페르소나로 선정했습니다.',
+              '노후소득, 건강여가, 가족, 여행여가 등으로 주제가 나뉘었는데, 그중 여행·여가가 879건으로 가장 두드러졌습니다. 또한, 액티브 시니어의 소비지출 중 여가활동의 지출이 40% 이상이었기 때문에 여행을 액티브 시니어의 핵심 키워드로 선정했습니다.',
         },
         {
-          'title': '사용자 경험 데이터 분석',
-          'description': '이 페르소나가 여행 중 실제로 겪는 경험의 흐름 — 피로가 쌓이는 시점, 판단이 흔들리는 순간 — 을 데이터에서 재구성했습니다.',
+          'title': '2차 크롤링 — 여행으로 집중',
+          'description': '액티브 시니어는 여행에서 어떤 즐거움과 고통을 겪고 있는지 파악하기 위해 여행 관련 카페·블로그에서 41,411건의 데이터를 추가로 수집했습니다.',
+        },
+        {
+          'title': '분류기로 정제',
+          'description':
+              'SBERT+RandomForest로 여행 관련 내용 여부를 판별하는 분류기를 만들어(F1-Score 0.95) 무관한 데이터를 걸러냈습니다. 최종 16,027건이 남았습니다.',
+        },
+        {
+          'title': 'Actor 군집화',
+          'description': 'SBERT 임베딩과 UMAP+HDBSCAN으로 4개 Actor 클러스터를 나눴습니다.',
+        },
+        {
+          'title': 'Action·기회영역 분석',
+          'description': 'NMF로 클러스터별 행동 패턴(Action)을 추출하고, 중요도와 만족도를 교차한 Opportunity Map으로 어디에 기회가 있는지 구조화했습니다.',
+        },
+        {
+          'title': '페르소나 선정',
+          'description': '4개 Actor 중 숙소 품질·위치 비교형을 최종 페르소나로 선정했습니다.',
         },
         {
           'title': '데이터 기반 솔루션 도출',
-          'description': '그 여정에서 제품이 자연스럽게 개입할 수 있는 지점을 찾아, 제품을 경험의 중심이 아니라 경험 안에 스며드는 요소로 설계했습니다.',
+          'description': '이 페르소나의 여정에서 제품이 자연스럽게 개입할 수 있는 지점을 찾아, 제품을 경험의 중심이 아니라 경험 안에 스며드는 요소로 설계했습니다.',
         },
       ],
-      'journeyStages': null,
-      'activeJourneyIndices': null,
-      'interviewQuestions': null,
       'pivot':
-          '처음 팀은 크롤링부터 시작하자는 쪽이었고 실제로 그렇게 출발했습니다. 그런데 수집 기준이 없으니 데이터가 쌓여도 판단이 서지 않았습니다. 분류가 안 되는 게시글 사례를 정리해 보여주며 타깃 정의를 먼저 하자고 제안했고, 순서를 바꾼 뒤 2차 크롤링의 정확도가 눈에 띄게 달라졌습니다. 그렇게 도출한 클러스터 중에서도, 체력·컨디션 언급 빈도가 가장 높고 완주 의지와 불안이 동시에 나타나며 프리미엄 숙소를 직접 예약하는 패턴을 보인 클러스터 하나를 핵심 페르소나로 선정했습니다.',
-      'pivotFrom': '크롤링 우선',
-      'pivotFromNote': '수집 기준이 없어 데이터가 쌓여도 판단이 서지 않음',
-      'pivotTo': '타깃 정의 우선',
-      'pivotToNote': '무엇을 수집할지부터 다시 정의하고 파이프라인 전체를 재설계',
-      'pivotEvidenceLabel': null,
-      'pivotEvidences': <String>[],
-      'pivotEvidenceNote': null,
+          '4개 클러스터 모두가 후보는 아니었습니다. 국내 당일치기 여행객은 숙소 체류 시간이 짧아 개입할 맥락 자체가 부족했고, 여행 기록·공유형은 숙소를 콘텐츠 배경으로만 쓸 뿐 회복이 핵심 가치로 작동하지 않았습니다. 장거리 해외여행 일정 조율형도 고려했지만, 이들의 페인포인트는 동선·교통편 같은 이동 문제에 가까웠습니다.\n\n반면 숙소 품질·위치 비교형은 실제 데이터에서 **관광이 아니라 숙소가 목적지**라고 말하고 있었고, **여행의 피로는 이동에서부터 누적된다 — 숙소 도착이 곧 회복의 시작이어야 한다**는 인사이트가 나왔습니다. 이에 따라, 객실 안의 가전 경험을 설계하는 LG SUITE를 제안했습니다.',
       'decision':
-          '\'체력 때문에 일정을 포기한다\'는 데이터 패턴 하나를 \'여행 완주 컨디션\'이라는 서비스 가치로 바꿔 제안했습니다. 가전을 전면에 내세우지 않고, 사용자가 여행이라는 경험을 완주하도록 돕는 배경으로 설계했습니다.',
-      'validation':
-          '실측 검증 단계까지는 진행하지 못했습니다. 다만 핵심 페르소나 클러스터의 대표 문서와 상위 키워드를 재확인하는 방식으로 군집 해석의 타당성을 교차 검토했고, 다음 단계로는 [도출된 컨셉에 대한 타겟 그룹 반응 조사]를 설계해뒀습니다.',
+          '**숙소에 머무는 것 또한 여행의 큰 즐거움이 되었으면 좋겠다**는 이 페르소나의 바람을, **일상처럼 편안하고 회복되는 숙박 경험**이라는 서비스 가치로 바꿔 제안했습니다. 가전을 전면에 내세우지 않고, 체크인 전부터 실내 환경을 선제적으로 세팅해 여행객이 도착하자마자 회복을 시작할 수 있게 설계했습니다.\n\n경쟁 사례(Samsung-Accor 등)를 먼저 조사해 이 논리가 무너질 수 있는 지점부터 검증했고, 운영자가 아닌 고객의 회복 경험을 중심에 둔 접근이라는 차별점을 확인했습니다.',
       'retrospective':
-          '데이터는 질문이 먼저 있을 때에만 방향이 된다는 걸 배웠습니다. 그리고 좋은 제품 경험은 제품이 두드러지는 게 아니라, 사용자가 원래 하려던 일 안에 자연스럽게 녹아있을 때 만들어진다는 것도 이 프로젝트에서 배운 것입니다.',
+          '데이터는 질문이 먼저 있을 때에만 방향이 된다는 걸 배웠습니다. 처음부터 **여행**을 정해두고 크롤링했다면 이 발견은 없었을 겁니다.\n\n관심사 전체를 넓게 열어두고 봤기 때문에 여행이라는 주제가, 그리고 그 안에서도 **숙소가 목적지**라는 뜻밖의 인사이트가 데이터 안에서 스스로 드러날 수 있었습니다.',
       'prototypes': null,
-      // lgsuite 3장은 재현/실측 시각화라 이미지로 유지 (UMAP은 illustrative 라벨 포함)
       'outcomes': [
-        {
-          'image': 'lg_map.png',
-          'caption': 'Actor 클러스터 UMAP 시각화 — noise 제거 후 4개 군집 (illustrative)',
-        },
-        {
-          'image': 'lg_opportunity.png',
-          'caption': '페르소나 도출을 위한 기회영역',
-        },
+        {'image': 'assets/lg_map.png', 'caption': 'UMAP + HDBSCAN Actor 클러스터 시각화'},
+        {'image': 'assets/lg_opportunity.png', 'caption': 'Actor-Action Opportunity Matrix — Underserved 영역 발견'},
       ],
+      'outcomeHeight': null,
+      'outcomeWidth': null,
+      'paperStatus': null,
+      'paperMotivation': null,
+      'paperExpansion': null,
+      'paperReframe': null,
+      'paperConclusion': null,
     },
     'org': {
-      'sku': 'RESEARCH NO. 03',
-      'title': '조직경험(Employee Experience) 분석',
+      'sku': 'Project NO. 03',
+      'affiliation': '학부 팀 프로젝트',
+      'title': '성장을 위한 조직경험 설계',
       'summary': '조직 문화를 만족도 조사로 접근하지 않기로 결정하고, 구성원의 실제 경험 흐름을 인터뷰로 재구성해 조직 경험이 형성되는 지점을 분석했습니다.',
       'original': '구성원들은 조직 생활에 얼마나 만족하는가',
       'redefined': '구성원은 입사부터 지금까지 어떤 경험 흐름을 지나왔고, 그 흐름의 어디서 몰입이 생기고 어디서 단절되는가',
@@ -233,10 +213,9 @@ class _ProjectsDetailPageState extends State<ProjectsDetailPage> {
         '기간': '4~5주 (주당 5~8시간)',
         '방법론': '반구조화 인터뷰 · 경험 흐름 재구성',
         '흐름': '입사 → 적응 → 관계형성 → 업무경험 → 몰입',
-        '역할': '[개인/팀] — 인터뷰 프로토콜 설계, 진행, 경험 흐름 재구성 프레임 설계, GGP 제도 기획',
       },
       'methodReason':
-          '만족도 점수는 왜 그런 점수가 나왔는지 설명하지 못한다고 판단했습니다. 그래서 의견이 아니라 실제로 있었던 경험 사례를 말하게 하는 질문으로 인터뷰를 설계했습니다. 같은 기준으로 정리해야 패턴이 보이니, 경험을 긍정/부정으로 나누고 흐름 순서로 재배열하는 정리 방식을 만들었습니다.',
+          '설문 조사를 통해 조사를 해볼 수 있었지만, 만족도 점수는 왜 그런 점수가 나왔는지 충분히 설명하지 못한다고 판단했습니다. 그래서 실제로 있었던 경험 사례를 말하게 하는 질문으로 인터뷰를 설계했습니다.\n\n 인터뷰 후 경험을 긍정/부정으로 나누고 흐름 순서로 정리해나갔습니다.',
       'process': null,
       'journeyStages': ['입사', '적응・성장', '휴식과 일상', '성장 동기부여', '퇴직'],
       'activeJourneyIndices': [2, 3],
@@ -255,36 +234,28 @@ class _ProjectsDetailPageState extends State<ProjectsDetailPage> {
         },
       ],
       'pivot':
-          '제도가 잘 갖춰진 조직이라도 구성원의 몰입도가 늘 높지는 않았습니다. 분석해보니 몰입을 가르는 건 제도 자체가 아니라, 그 제도 밖에서 일어나는 실제 관계 경험이었습니다. 조직이 설계한 것과 구성원이 실제로 겪는 것 사이엔 예상보다 뚜렷한 간극이 있었습니다.',
-      'pivotFrom': '만족도 조사',
-      'pivotFromNote': '점수는 왜 그런 점수인지 설명하지 못함',
-      'pivotTo': '경험 흐름 재구성',
-      'pivotToNote': '의견이 아니라 실제 있었던 경험 사례를 흐름 순서로 재배열',
-      'pivotEvidenceLabel': null,
-      'pivotEvidences': <String>[],
-      'pivotEvidenceNote': null,
+          '제도가 잘 갖춰진 조직이라도 구성원의 몰입도가 늘 높지는 않았습니다. 제도를 실제로 활용하는 정도, 조직원이 원하는 제도인지가 조직 경험의 만족도를 가르는 기준이었습니다.\n\n조직이 설계한 것과 구성원이 실제로 겪는 것 사이엔 예상보다 뚜렷한 간극이 있었습니다.',
       'decision':
-          '몰입은 \'자신의 기여가 인정받는 순간\'에서 생긴다는 인사이트를 바탕으로, 피드백 구조 강화와 기여를 명확히 전달하는 장치, 초기 적응 경험 개선을 제안했습니다. 특히 자기개발 지원 체계가 비어있다는 발견을 바탕으로 HUFS Global Growth Point(GGP)라는 자기주도 학습 포인트 제도를 설계했습니다.',
-      'validation':
-          'GGP 제도는 시범운영 신청서(IDP 양식) 설계까지 진행했습니다. 제도의 성패는 참여율이 아니라 "포인트를 쓴 뒤 학습이 이어지는가"에 있다고 봐서, 시범운영 측정 지표로 [재신청률]을 1순위에 뒀습니다.',
+          '몰입은 **자신이 계속 성장해나가는 순간**에서 생긴다는 인사이트를 바탕으로, 피드백 구조 강화와 기여를 명확히 전달하는 장치, 초기 적응 경험 개선을 제안했습니다.\n\n특히 구성원의 성장을 위한 자기개발 지원 체계가 부족하다는 발견을 바탕으로 HUFS Global Growth Point(GGP)라는 자기주도 학습 포인트 제도를 설계했습니다.',
       'retrospective':
-          '경험을 분석할 때는 분석 기준을 먼저 명확히 세우는 것이 결과의 신뢰도를 결정한다는 걸 배웠습니다. 제품이 없어도, 사람이 겪는 흐름이 있는 곳이면 같은 방법론이 통한다는 것도 이 프로젝트에서 확인했습니다. '
-          '한 가지 한계는 분명합니다 — 이 리서치는 통계적 일반화가 아니라 만족도 점수 뒤에 숨은 경험 구조를 탐색하는 것이 목적이었고, "제도와 실제 경험의 간극"이라는 패턴이 소수 인터뷰에서도 독립적으로 반복 확인됐습니다. 이를 일반화하려면 정량 설문으로의 확장 설계가 다음 단계라고 정리해뒀습니다.',
+          '경험을 분석할 때는 분석 기준을 먼저 명확히 세우는 것이 결과의 신뢰도를 결정한다는 걸 배웠습니다.\n\n제품 및 서비스가 아니더라도, 사람이 겪는 흐름이 있는 곳이면 같은 방법론이 통한다는 것도 이 프로젝트에서 확인했습니다.',
       'prototypes': null,
-      // 여정 매핑(org_01)은 QuestionFlow와, GGP 구조(org_02)는 위젯과 중복되어 제외
       'outcomes': [
-        {
-          'image': 'assets/apply.png',
-          'caption': '시범운영 신청서(IDP) 양식 설계',
-        },
+        {'image': 'assets/IDA.png', 'caption': '시범운영 신청서 양식(IDP) 설계'},
       ],
+      'outcomeHeight': 640,
+      'outcomeWidth': 480,
+      'paperStatus': null,
+      'paperMotivation': null,
+      'paperExpansion': null,
+      'paperReframe': null,
+      'paperConclusion': null,
     },
   };
 
   @override
   Widget build(BuildContext context) {
     final data = _data[widget.projectId];
-    final bool isMobile = MediaQuery.of(context).size.width < 800;
 
     if (data == null) {
       return const Scaffold(
@@ -303,10 +274,7 @@ class _ProjectsDetailPageState extends State<ProjectsDetailPage> {
     final List<dynamic>? outcomes = data['outcomes'];
     final List<dynamic>? process = data['process'];
     final List<dynamic>? journeyStages = data['journeyStages'];
-
-    final bool isChatbot = widget.projectId == 'chatbot';
-    final bool isOrg = widget.projectId == 'org';
-    final bool isLgsuite = widget.projectId == 'lgsuite';
+    final bool hasPaperExtension = data['paperExpansion'] != null;
 
     return Scaffold(
       backgroundColor: const Color(0xFFF3F3EF),
@@ -314,20 +282,18 @@ class _ProjectsDetailPageState extends State<ProjectsDetailPage> {
         children: [
           SingleChildScrollView(
             controller: _scrollController,
-            padding: EdgeInsets.all(isMobile ? 20 : 48),
+            padding: const EdgeInsets.all(48),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const PageHeader(label: 'PROJECT'),
                 const SizedBox(height: 60),
-
                 Center(
                   child: ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 720),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // 0. 요약
                         Container(key: _sectionKeys[0], child: const SizedBox()),
                         Text(
                           data['sku'],
@@ -337,6 +303,17 @@ class _ProjectsDetailPageState extends State<ProjectsDetailPage> {
                             color: Color(0xFFA73B2E),
                           ),
                         ),
+                        if (data['affiliation'] != null) ...[
+                          const SizedBox(height: 4),
+                          Text(
+                            data['affiliation'],
+                            style: const TextStyle(
+                              fontFamily: 'IBM Plex Mono',
+                              fontSize: 10,
+                              color: Color(0xFFA6A29B),
+                            ),
+                          ),
+                        ],
                         const SizedBox(height: 8),
                         Text(
                           data['title'],
@@ -348,8 +325,8 @@ class _ProjectsDetailPageState extends State<ProjectsDetailPage> {
                           ),
                         ),
                         const SizedBox(height: 16),
-                        Text(
-                          data['summary'],
+                        RichBodyText(
+                          text: data['summary'],
                           style: const TextStyle(
                             fontFamily: 'Noto Sans KR',
                             fontWeight: FontWeight.w300,
@@ -359,16 +336,12 @@ class _ProjectsDetailPageState extends State<ProjectsDetailPage> {
                           ),
                         ),
                         const SizedBox(height: 40),
-
-                        // 1. 재정의
                         Container(key: _sectionKeys[1], child: const SizedBox()),
                         RedefinitionMark(
                           original: data['original'],
                           redefined: data['redefined'],
                         ),
                         const SizedBox(height: 32),
-
-                        // 2. 방법
                         Container(key: _sectionKeys[2], child: const SizedBox()),
                         SpecTable(specs: Map<String, String>.from(data['specs'])),
                         const SizedBox(height: 12),
@@ -376,15 +349,7 @@ class _ProjectsDetailPageState extends State<ProjectsDetailPage> {
                           heading: 'WHY THIS METHOD',
                           body: data['methodReason'],
                         ),
-
-                        // Sequential Monadic 실험 설계 — 챗봇 전용, 방법 섹션 직후
-                        if (isChatbot) ...[
-                          const SizedBox(height: 32),
-                          const SequentialMonadicDiagram(),
-                        ],
                         const SizedBox(height: 32),
-
-                        // 인터뷰 여정 흐름 — org 전용
                         if (journeyStages != null) ...[
                           QuestionFlow(
                             journeyStages: List<String>.from(journeyStages),
@@ -401,8 +366,6 @@ class _ProjectsDetailPageState extends State<ProjectsDetailPage> {
                           ),
                           const SizedBox(height: 32),
                         ],
-
-                        // 프로세스 파이프라인 — lgsuite 전용
                         if (process != null) ...[
                           const Text(
                             'PROCESS',
@@ -427,58 +390,15 @@ class _ProjectsDetailPageState extends State<ProjectsDetailPage> {
                           const SizedBox(height: 48),
                         ] else
                           const SizedBox(height: 16),
-
-                        // 3. 발견 — 열쇠 마커 + 피벗 다이어그램
                         Container(key: _sectionKeys[3], child: const SizedBox()),
                         KeyMoment(body: data['pivot']),
-                        const SizedBox(height: 32),
-                        PivotDiagram(
-                          from: data['pivotFrom'],
-                          fromNote: data['pivotFromNote'],
-                          to: data['pivotTo'],
-                          toNote: data['pivotToNote'],
-                          evidenceLabel: data['pivotEvidenceLabel'],
-                          evidences: List<String>.from(data['pivotEvidences'] ?? const []),
-                          evidenceNote: data['pivotEvidenceNote'],
-                        ),
-
-                        // 핵심 페르소나 — lgsuite 전용. 피벗(타깃 정의 우선)의 결과물이자
-                        // 뒤이어 나올 결정("여행 완주 컨디션" 가치 제안)의 근거이므로
-                        // 발견 섹션 끝, 결정 섹션 시작 전에 배치한다.
-                        if (isLgsuite) ...[
-                          const SizedBox(height: 32),
-                          const PersonaCard(),
-                        ],
                         const SizedBox(height: 48),
-
-                        // 4. 결정
                         Container(key: _sectionKeys[4], child: const SizedBox()),
                         StorySection(
                           heading: 'INSIGHT TO DECISION',
                           body: data['decision'],
                         ),
-
-                        // 결정을 시각화하는 위젯 — 프로젝트별 결론 다이어그램
-                        if (isChatbot) ...[
-                          const SizedBox(height: 32),
-                          const HybridConclusionDiagram(),
-                        ],
-                        if (isOrg) ...[
-                          const SizedBox(height: 32),
-                          const GgpCycleDiagram(),
-                        ],
                         const SizedBox(height: 32),
-
-                        // 검증/임팩트
-                        if (data['validation'] != null) ...[
-                          StorySection(
-                            heading: 'VALIDATION',
-                            body: data['validation'],
-                          ),
-                          const SizedBox(height: 32),
-                        ],
-
-                        // 프로토타입 — chatbot 전용
                         if (prototypes != null && prototypes.isNotEmpty) ...[
                           PrototypeCarousel(
                             items: prototypes
@@ -492,8 +412,6 @@ class _ProjectsDetailPageState extends State<ProjectsDetailPage> {
                           ),
                           const SizedBox(height: 40),
                         ],
-
-                        // 결과물 갤러리 — 데이터에 남아있는 이미지만 (위젯화된 항목은 제외됨)
                         if (outcomes != null && outcomes.isNotEmpty) ...[
                           const Text(
                             'OUTCOME',
@@ -506,6 +424,8 @@ class _ProjectsDetailPageState extends State<ProjectsDetailPage> {
                           ),
                           const SizedBox(height: 20),
                           PrototypeCarousel(
+                            height: (data['outcomeHeight'] as num?)?.toDouble() ?? 420,
+                            width: (data['outcomeWidth'] as num?)?.toDouble(),
                             items: outcomes
                                 .map(
                                   (o) => PrototypeItem(
@@ -517,16 +437,123 @@ class _ProjectsDetailPageState extends State<ProjectsDetailPage> {
                           ),
                           const SizedBox(height: 48),
                         ],
-
-                        // 5. 회고
                         Container(key: _sectionKeys[5], child: const SizedBox()),
                         StorySection(
                           heading: 'RETROSPECTIVE',
                           body: data['retrospective'],
                         ),
-                        const SizedBox(height: 40),
-
-                        // 이전/다음 프로젝트
+                        const SizedBox(height: 48),
+                        if (hasPaperExtension) ...[
+                          const Text(
+                            'PAPER EXTENSION',
+                            style: TextStyle(
+                              fontFamily: 'IBM Plex Mono',
+                              fontSize: 11,
+                              color: Color(0xFFA73B2E),
+                              letterSpacing: 1,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            data['paperStatus'],
+                            style: const TextStyle(
+                              fontFamily: 'IBM Plex Mono',
+                              fontSize: 11,
+                              color: Color(0xFFA6A29B),
+                            ),
+                          ),
+                          const SizedBox(height: 24),
+                          const Text(
+                            'WHY GO FURTHER',
+                            style: TextStyle(
+                              fontFamily: 'IBM Plex Mono',
+                              fontSize: 11,
+                              color: Color(0xFFA73B2E),
+                              letterSpacing: 1,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          GlossaryParagraph(
+                            segments: [
+                              const GlossarySegment.text('학기 프로젝트에서 쓴 성향 축은 저희가 만든 '),
+                              GlossarySegment.term(
+                                text: '문항 2개',
+                                definition:
+                                    'Q7. 정말 지치고 힘든 하루를 보냈습니다. 친구에게 하소연하려는데, 기대하는 반응은?\n'
+                                    'A. 구체적으로 먼저 질문해주는 것\n'
+                                    'B. "다 들어줄게"라며 판을 깔아주는 것\n'
+                                    'C. 조용히 옆에 있어주거나 짧은 위로만 해주는 것\n\n'
+                                    'Q8. 힘들 때 주변 사람에게 표현하는 방식은?\n'
+                                    'A. 상대가 눈치채고 물어봐 줄 때까지 기다림\n'
+                                    'B. 내가 먼저 상황과 감정을 구체적으로 이야기함\n'
+                                    'C. 누구에게도 말하지 않고 혼자 해결함',
+                                rationale:
+                                    '표준화된 도구가 아니라, 저희가 논리적으로 추론해서 만든 임시 문항이었습니다. (AA이면 prevention/BB이면 promotion)',
+                              ),
+                              const GlossarySegment.text(
+                                '로 판단한 것이었습니다. 그럴듯해 보이는 패턴이었지만, 학술적으로 발표하려면 타당성이 검증되지 않은 자체 지표로는 부족하다고 판단했습니다.',
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 32),
+                          StorySection(
+                            heading: 'EXPANDING THE STUDY',
+                            body: data['paperExpansion'],
+                          ),
+                          const SizedBox(height: 32),
+                          StorySection(
+                            heading: 'REFRAMING THE THEORY',
+                            body: data['paperReframe'],
+                          ),
+                          const SizedBox(height: 24),
+                          GlossaryParagraph(
+                            segments: [
+                              const GlossarySegment.text(
+                                'IU가 높은 참가자 중 53%가 가이드형을 선택한 반면, 낮은 참가자는 28%만 가이드형을 선택했습니다. 이 차이는 ',
+                              ),
+                              GlossarySegment.term(
+                                text: '카이제곱 검정',
+                                definition: '두 집단의 비율 차이가 우연이 아닌지 확인하는 통계 검정입니다.',
+                                rationale: '표본이 100명으로 늘면서, 관찰된 패턴이 우연인지 아닌지 통계적으로 확인할 수 있게 됐습니다.',
+                              ),
+                              const GlossarySegment.text(' 결과 통계적으로 유의했습니다 (χ²=6.4, p=.011).'),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          GlossaryParagraph(
+                            segments: [
+                              const GlossarySegment.text('다만 IU를 연속값으로 넣은 '),
+                              GlossarySegment.term(
+                                text: '로지스틱 회귀',
+                                definition: '두 집단으로 딱 나누지 않고, 점수 차이가 결과에 미치는 영향을 정밀하게 분석하는 통계 방법입니다.',
+                                rationale: '집단을 나눈 경계선 때문에 생긴 착시인지 확인하기 위해 추가로 검증했습니다.',
+                              ),
+                              const GlossarySegment.text(
+                                '에서는 이 관계가 유의하지 않았습니다. 그래서 이 결과를 확정된 효과가 아니라, 추가 검증이 필요한 탐색적 패턴으로 정직하게 보고했습니다.',
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          GlossaryParagraph(
+                            segments: [
+                              const GlossarySegment.text('정성 분석은 '),
+                              GlossarySegment.term(
+                                text: 'CQR',
+                                definition: '소규모 표본을 체계적으로 분석하는 정성 연구 방법론입니다. 코더 간 합의와 외부 감사를 거쳐 신뢰도를 확보합니다.',
+                                rationale: '20명이라는 적은 인원에서도 신뢰할 수 있는 패턴을 뽑아내기 위해 채택했습니다.',
+                              ),
+                              const GlossarySegment.text(
+                                ' 방식으로, 두 명이 독립적으로 코딩한 뒤 합의하고 외부 감사자에게 검증받는 절차를 거쳤습니다. 가이드형의 반복 질문이 오히려 대화의 통제권을 뺏는다고 느낀 참가자가 13명으로 가장 많았습니다.',
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 32),
+                          StorySection(
+                            heading: 'REVISED CONCLUSION',
+                            body: data['paperConclusion'],
+                          ),
+                          const SizedBox(height: 48),
+                        ],
                         PrevNextProjectNav(
                           prevTitle: prevData['title'],
                           nextTitle: nextData['title'],
@@ -540,21 +567,18 @@ class _ProjectsDetailPageState extends State<ProjectsDetailPage> {
               ],
             ),
           ),
-
-          // 우측 고정 섹션 내비게이션 — 모바일에서는 숨김
-          if (!isMobile)
-            Positioned(
-              right: 32,
-              top: 0,
-              bottom: 0,
-              child: Center(
-                child: SectionNavDots(
-                  labels: _sectionLabels,
-                  activeIndex: _activeSection,
-                  onTapDot: _jumpTo,
-                ),
+          Positioned(
+            right: 32,
+            top: 0,
+            bottom: 0,
+            child: Center(
+              child: SectionNavDots(
+                labels: _sectionLabels,
+                activeIndex: _activeSection,
+                onTapDot: _jumpTo,
               ),
             ),
+          ),
         ],
       ),
     );

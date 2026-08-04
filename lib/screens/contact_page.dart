@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:portfolio_app/widget/page_header.dart';
-import 'package:portfolio_app/widget/section_heading.dart';
 import 'package:portfolio_app/widget/icon_button_link.dart';
+import 'package:portfolio_app/widget/linkedin_icon.dart';
+import 'package:portfolio_app/widget/keyhole_hub.dart';
 
 class ContactPage extends StatelessWidget {
   const ContactPage({super.key});
 
-  // ⚠️ STEP 1-1: 실제 값으로 반드시 교체 후 배포하세요.
   static const String _email = 'your-email@example.com';
-  static const String _phone = '01000000000';
+  static const String _linkedinUrl = 'https://www.linkedin.com/in/your-id';
   static const String _resumeUrl = 'https://your-resume-link.com';
 
   Future<void> _launchEmail() async {
@@ -17,9 +17,9 @@ class ContactPage extends StatelessWidget {
     await launchUrl(uri);
   }
 
-  Future<void> _launchPhone() async {
-    final uri = Uri(scheme: 'tel', path: _phone);
-    await launchUrl(uri);
+  Future<void> _launchLinkedin() async {
+    final uri = Uri.parse(_linkedinUrl);
+    await launchUrl(uri, mode: LaunchMode.externalApplication);
   }
 
   Future<void> _launchResume() async {
@@ -29,6 +29,7 @@ class ContactPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
     final bool isMobile = MediaQuery.of(context).size.width < 800;
 
     return Scaffold(
@@ -39,54 +40,87 @@ class ContactPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const PageHeader(label: 'CONTACT'),
-            const SizedBox(height: 60),
 
-            const SectionHeading(
-              title: "함께 다음 질문을 찾고 싶습니다",
-              subtitle: "이메일, 전화, 이력서 중 편한 방법으로 연락 주세요",
-            ),
-            const SizedBox(height: 48),
+            SizedBox(
+              height: screenHeight - (isMobile ? 100 : 140),
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 480),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // 서사를 닫는 열쇠구멍
+                      const KeyholeIcon(size: 40, color: Color(0xFFA73B2E)),
+                      const SizedBox(height: 28),
 
-            Row(
-              children: [
-                IconButtonLink(
-                  imagePath: 'assets/email_button.png',
-                  label: 'EMAIL',
-                  onTap: _launchEmail,
-                ),
-                const SizedBox(width: 40),
-                IconButtonLink(
-                  imagePath: 'assets/phone_button.png',
-                  label: 'CALL',
-                  onTap: _launchPhone,
-                ),
-              ],
-            ),
-            const SizedBox(height: 56),
-
-            // STEP 8-1: GestureDetector → Semantics + InkWell
-            Semantics(
-              button: true,
-              label: '이력서 다운로드',
-              child: MouseRegion(
-                cursor: SystemMouseCursors.click,
-                child: InkWell(
-                  onTap: _launchResume,
-                  borderRadius: BorderRadius.circular(4),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: const Color(0xFF1D1D1B)),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: const Text(
-                      '이력서 다운로드',
-                      style: TextStyle(
-                        fontFamily: 'IBM Plex Mono',
-                        fontSize: 12,
-                        color: Color(0xFF1D1D1B),
+                      const Text(
+                        '다음 질문은\n함께 풀어가고 싶습니다',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Gowun Batang',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24,
+                          height: 1.5,
+                          color: Color(0xFF1D1D1B),
+                        ),
                       ),
-                    ),
+                      const SizedBox(height: 12),
+                      const Text(
+                        '이메일, LinkedIn, 이력서 중 편한 방법으로 연락 주세요',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Noto Sans KR',
+                          fontWeight: FontWeight.w300,
+                          fontSize: 14,
+                          color: Color(0xFFA6A29B),
+                        ),
+                      ),
+                      const SizedBox(height: 48),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButtonLink(
+                            imagePath: 'assets/email_button.png',
+                            label: 'EMAIL',
+                            onTap: _launchEmail,
+                          ),
+                          const SizedBox(width: 48),
+                          IconButtonLink(
+                            iconWidget: const LinkedinIcon(),
+                            label: 'LINKEDIN',
+                            onTap: _launchLinkedin,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 40),
+
+                      // 이력서 — 주요 CTA로 강조 (채운 버튼)
+                      MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          onTap: _launchResume,
+                          child: Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF1D1D1B),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: const Center(
+                              child: Text(
+                                '이력서 다운로드',
+                                style: TextStyle(
+                                  fontFamily: 'IBM Plex Mono',
+                                  fontSize: 13,
+                                  color: Color(0xFFF3F3EF),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

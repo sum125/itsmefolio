@@ -10,11 +10,13 @@ class PrototypeItem {
 class PrototypeCarousel extends StatefulWidget {
   final List<PrototypeItem> items;
   final double height;
+  final double? width;
 
   const PrototypeCarousel({
     super.key,
     required this.items,
     this.height = 420,
+    this.width,
   });
 
   @override
@@ -52,13 +54,13 @@ class _PrototypeCarouselState extends State<PrototypeCarousel> {
           enabled: _currentIndex > 0,
         ),
         const SizedBox(width: 20),
-
         Column(
           children: [
             Container(
-              width: widget.height * 1.3,
+              width: widget.width ?? widget.height * 1.3,
               height: widget.height,
               decoration: BoxDecoration(
+                color: Colors.white,
                 border: Border.all(color: const Color(0xFF1D1D1B), width: 1.4),
               ),
               child: ClipRect(
@@ -78,9 +80,7 @@ class _PrototypeCarouselState extends State<PrototypeCarousel> {
                 ),
               ),
             ),
-            const SizedBox(height: 14),
-
-            // 판단 번호 + 그 판단이 뭐였는지 한 줄 캡션
+            const SizedBox(height: 24),
             Text(
               '${(_currentIndex + 1).toString().padLeft(2, '0')} / ${widget.items.length.toString().padLeft(2, '0')}  —  ${widget.items[_currentIndex].caption}',
               style: const TextStyle(
@@ -91,7 +91,6 @@ class _PrototypeCarouselState extends State<PrototypeCarousel> {
             ),
           ],
         ),
-
         const SizedBox(width: 20),
         _arrowButton(
           icon: Icons.chevron_right,

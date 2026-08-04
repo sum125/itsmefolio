@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'keyhole_hub.dart'; // KeyholeIcon 재사용
+import 'keyhole_hub.dart';
+import 'rich_body_text.dart';
 
 class KeyMoment extends StatelessWidget {
   final String body;
@@ -27,8 +28,8 @@ class KeyMoment extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              Text(
-                body,
+              RichBodyText(
+                text: body,
                 style: const TextStyle(
                   fontFamily: 'Noto Sans KR',
                   fontSize: 15,

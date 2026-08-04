@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
 class IconButtonLink extends StatelessWidget {
-  final String imagePath;
+  final String? imagePath;
+  final Widget? iconWidget;
   final String label;
   final VoidCallback onTap;
 
   const IconButtonLink({
     super.key,
-    required this.imagePath,
+    this.imagePath,
+    this.iconWidget,
     required this.label,
     required this.onTap,
-  });
+  }) : assert(imagePath != null || iconWidget != null);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,11 @@ class IconButtonLink extends StatelessWidget {
         onTap: onTap,
         child: Column(
           children: [
-            Image.asset(imagePath, width: 44, height: 44),
+            SizedBox(
+              width: 44,
+              height: 44,
+              child: iconWidget ?? Image.asset(imagePath!, width: 44, height: 44),
+            ),
             const SizedBox(height: 10),
             Text(
               label,
