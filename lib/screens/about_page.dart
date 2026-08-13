@@ -141,7 +141,7 @@ class AboutPage extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8),
         child: Image.asset(
-          'assets/me.png',
+          'assets/me.jpg',
           fit: BoxFit.cover,
           errorBuilder: (context, error, stackTrace) => Container(
             color: const Color(0xFFE3E1D8),
