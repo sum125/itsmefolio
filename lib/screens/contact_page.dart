@@ -10,7 +10,7 @@ class ContactPage extends StatelessWidget {
 
   static const String _email = 'sumin031225@gmail.com';
   static const String _linkedinUrl = 'https://www.linkedin.com/in/%EA%B9%80%EC%88%98%EB%AF%BC';
-  static const String _resumeUrl = 'https://your-resume-link.com';
+  static const String _resumeUrl = 'https://sumuxfolio.netlify.app/resume.pdf';
 
   Future<void> _launchEmail() async {
     final uri = Uri(scheme: 'mailto', path: _email);
