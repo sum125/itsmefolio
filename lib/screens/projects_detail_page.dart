@@ -134,7 +134,7 @@ class _ProjectsDetailPageState extends State<ProjectsDetailPage> {
     },
     'lgsuite': {
       'sku': 'Project NO. 02',
-      'affiliation': 'LG DX School · 학부 팀 프로젝트',
+      'affiliation': 'LG DX School · 교육 내 팀 프로젝트',
       'title': '액티브 시니어의 삶에서의 LG가전 경험 설계',
       'summary':
           'LG전자는 가전 시장 점유율 1위지만, 여러 제품을 함께 경험해본 고객은 세대·구매력 면에서 한정적이었습니다. 액티브 시니어의 관심사를 넓게 크롤링하다가 **여행**이 가장 두드러진 주제라는 걸 데이터로 발견했고, 그 안에서도 **숙소가 목적지**라고 답하는 사람들의 회복 니즈를 찾아 제품 경험으로 연결했습니다.',
